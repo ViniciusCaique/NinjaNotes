@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +13,8 @@
         <div class="nav-wrapper yellow darken-3">
           <a href="#" class="brand-logo">Ninja Notes</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li class="active"><a href="/notes">Todas</a></li>
-            <li><a href="#">Usuários</a></li>
+            <li class="active"><a href="/notes" th:text="#{notes.all}"></a></li>
+            <li><a href="#" th:text="#{users}"></a></li>
           </ul>
         </div>
     </nav>
@@ -22,7 +22,7 @@
     <h2>Cadastrar Nota</h2>
 
     <div class="card">
-        <form action="/notes" method="post" th:object="${task}">
+        <form th:action="${'/notes'}" method="post" th:object="${note}">
             <div class="card-content">
                 <div class="input-field">
                     <input 
@@ -45,13 +45,11 @@
                 </div>
             </div>
             <div class="card-action right-align">
-                <a href="/notes" class="btn grey">
+                <a href="/notes" class="btn grey" th:text="#{cancel}">
                     <i class="material-icons left">chevron_left</i>
-                    cancelar
                 </a>
-                <button class="btn">
+                <button class="btn" th:text="#{register}">
                     <i class="material-icons left">check</i>
-                    cadastrar
                 </button>
             </div>
         </form>

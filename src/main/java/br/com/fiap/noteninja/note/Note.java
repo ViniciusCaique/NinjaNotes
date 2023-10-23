@@ -20,4 +20,5 @@ public class Note {
 
     @Size(min = 10, message = "a descrição deve ter pelo menos 10 caracteres")
     String description;
+    
 }

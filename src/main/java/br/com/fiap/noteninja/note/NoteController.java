@@ -1,7 +1,11 @@
 package br.com.fiap.noteninja.note;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.scheduling.config.Task;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,14 +26,19 @@ public class NoteController {
     @Autowired
     NoteService noteService;
 
+    @Autowired
+    MessageSource messageSource;
+
     @GetMapping // ViewResolver
-    public String index(Model model){
+    public String index(Model model, @AuthenticationPrincipal OAuth2User user){
+        model.addAttribute("username", user.getAttribute("name"));
+        model.addAttribute("avatar_url", user.getAttribute("avatar_url"));
         model.addAttribute("notes", noteService.findAll());
         return "notes/index";
     }
 
     @GetMapping("new")
-    public String form(){
+    public String form(Note note){
         return "notes/form";
     }
 
@@ -37,17 +46,21 @@ public class NoteController {
     public String create(@Valid Note note, BindingResult result, RedirectAttributes redirect){
         if (result.hasErrors()) return "notes/form";
         noteService.save(note);
-        redirect.addFlashAttribute("success", "Tarefa cadastrada com sucesso");
+        redirect.addFlashAttribute("success", getMessage("notes.create.success"));
         return "redirect:/notes";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirect){
         if(noteService.delete(id)){
-            redirect.addFlashAttribute("success", "nota apagada com sucesso");
+            redirect.addFlashAttribute("success", getMessage("notes.delete.success"));
         } else {
-            redirect.addFlashAttribute("error", "nota nao encontrada");
+            redirect.addFlashAttribute("error", getMessage("notes.notfound.error"));
         }
         return "redirect:/notes";
+    }
+
+    private String getMessage(String code){
+        return messageSource.getMessage(code, null, LocaleContextHolder.getLocale());
     }
 }

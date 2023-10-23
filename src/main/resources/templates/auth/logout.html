@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body class="grey lighten-2">
+    
+    <main class="container center">
+        <form th:action="${'/logout'}" method="post">
+
+            <h4>tem certeza que deseja sair?</h4>
+            <a href="/notes" class="btn grey" th:text="#{cancel}">
+                <i class="material-icons left">chevron_left</i>
+            </a>
+
+            <button class="btn">sim, desejo sair</button>
+        </form>
+    </main>
+
+</body>
+</html>
