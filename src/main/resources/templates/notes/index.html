@@ -10,32 +10,7 @@
     <title>Document</title>
 </head>
 <body class="#e0e0e0 grey lighten-2">
-    <nav>
-        <div class="nav-wrapper yellow darken-3">
-          <a href="#" class="brand-logo">Ninja Notes</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li class="active"><a href="/notes" th:text="#{notes.all}"></a></li>
-            <li><a href="#" th:text="#{users}"></a></li>
-            <li>
-                <!-- Dropdown Trigger -->
-                <a class='dropdown-trigger' href='#' data-target='dropdown1'>
-                    <img th:src="${avatar_url}" alt="avatar do usuario" class="avatar">
-                </a>
-
-                <!-- Dropdown Structure -->
-                <ul id='dropdown1' class='dropdown-content'>
-                    <li>
-                        <span th:text="${username}"></span>
-                    </li>
-                    <li class="divider" tabindex="-1"></li>
-                    <li>
-                      <a href="/logout"><i class="material-icons">logout</i><span th:text="#{users.logout}"></span></a>
-                    </li>
-                </ul>
-            </li>
-          </ul>
-        </div>
-    </nav>
+    <nav th:replace="~{_template :: #navbar}"></nav>
 
     <main class="container">
 

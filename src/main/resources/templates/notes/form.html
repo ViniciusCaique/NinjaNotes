@@ -8,52 +8,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <title>Document</title>
 </head>
-<body>
-    <nav>
-        <div class="nav-wrapper yellow darken-3">
-          <a href="#" class="brand-logo">Ninja Notes</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li class="active"><a href="/notes" th:text="#{notes.all}"></a></li>
-            <li><a href="#" th:text="#{users}"></a></li>
-          </ul>
+<body class="#e0e0e0 grey lighten-2">
+    <nav th:replace="~{_template :: #navbar}"></nav>
+
+    <main class="container">
+
+        <h2>Cadastrar Nota</h2>
+
+        <div class="card">
+            <form th:action="${'/notes'}" method="post" th:object="${note}">
+                <div class="card-content">
+                    <div class="input-field">
+                        <input 
+                            type="text" 
+                            th:field="*{title}"
+                            th:classappend="${#fields.hasErrors('title')} ? invalid"
+                        >
+                        <label for="title">Título</label>
+                        <span class="helper-text red-text" th:errors="*{title}"></span>
+                    </div>
+                    
+                    <div class="input-field">
+                        <textarea 
+                            th:field="*{description}"
+                            class="materialize-textarea"
+                            th:classappend="${#fields.hasErrors('description')} ? invalid"
+                        ></textarea>
+                        <label for="description">Descrição</label>
+                        <span class="helper-text red-text" th:errors="*{description}"></span>
+                    </div>
+                </div>
+                <div class="card-action right-align">
+                    <a href="/notes" class="btn grey" th:text="#{cancel}">
+                        <i class="material-icons left">chevron_left</i>
+                    </a>
+                    <button class="btn" th:text="#{register}">
+                        <i class="material-icons left">check</i>
+                    </button>
+                </div>
+            </form>
         </div>
-    </nav>
-
-    <h2>Cadastrar Nota</h2>
-
-    <div class="card">
-        <form th:action="${'/notes'}" method="post" th:object="${note}">
-            <div class="card-content">
-                <div class="input-field">
-                    <input 
-                        type="text" 
-                        th:field="*{title}"
-                        th:classappend="${#fields.hasErrors('title')} ? invalid"
-                    >
-                    <label for="title">Título</label>
-                    <span class="helper-text red-text" th:errors="*{title}"></span>
-                </div>
-                
-                <div class="input-field">
-                    <textarea 
-                        th:field="*{description}"
-                        class="materialize-textarea"
-                        th:classappend="${#fields.hasErrors('description')} ? invalid"
-                    ></textarea>
-                    <label for="description">Descrição</label>
-                    <span class="helper-text red-text" th:errors="*{description}"></span>
-                </div>
-            </div>
-            <div class="card-action right-align">
-                <a href="/notes" class="btn grey" th:text="#{cancel}">
-                    <i class="material-icons left">chevron_left</i>
-                </a>
-                <button class="btn" th:text="#{register}">
-                    <i class="material-icons left">check</i>
-                </button>
-            </div>
-        </form>
-    </div>
+    </main>
     
 </body>
 </html>
